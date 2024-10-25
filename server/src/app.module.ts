@@ -4,7 +4,9 @@ import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius';
 import { GraphQLModule as MyGraphQLModule } from './graphql.module';
-import { join } from 'path';
+import path, { join } from 'path';
+import config from './config';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
@@ -14,7 +16,11 @@ import { join } from 'path';
       graphiql: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    MyGraphQLModule
+    MyGraphQLModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [config]
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
