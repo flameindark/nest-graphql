@@ -1,0 +1,20 @@
+# 使用 Node.js 官方镜像作为基础镜像
+FROM node:20
+
+# 安装 pnpm
+RUN npm install -g pnpm
+
+# 设置工作目录
+WORKDIR /client
+
+# 复制 package.json 和 package-lock.json
+COPY package*.json ./
+
+# 安装依赖
+RUN pnpm install
+
+# 复制应用的源代码
+COPY . .
+
+# 构建应用
+RUN pnpm  run build
