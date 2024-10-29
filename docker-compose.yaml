@@ -4,15 +4,13 @@ services:
     build:
       context: .
       dockerfile: client/dockerfile
-    ports:
-      - "3000:3000"
 
   server:
     build:
       context: .
       dockerfile: server/dockerfile
     ports:
-      - "4000:4000"
+      - "3000:3000"
 
   nginx:
     image: nginx
